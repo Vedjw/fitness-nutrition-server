@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit Buddy - Tracker</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: url("assets/background.jpg") no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        color: #333;
+      }
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(80, 200, 208, 0.3);
+        z-index: -1;
+      }
+      nav {
+        width: 250px;
+        background: linear-gradient(180deg, #1a1a1a, #333);
+        color: white;
+        height: 100vh;
+        padding: 30px 20px;
+        position: fixed;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+      }
+      nav img.profile-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 3px solid #50c8d0;
+        cursor: pointer;
+        transition: transform 0.3s;
+        margin: 20px auto;
+        display: block;
+      }
+      nav img.profile-img:hover {
+        transform: scale(1.1);
+      }
+      nav #username {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #fff;
+      }
+      nav ul {
+        list-style: none;
+      }
+      nav a {
+        color: #ccc;
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 15px 20px;
+        display: block;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+      }
+      nav a:hover {
+        color: #50c8d0;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      nav a i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+      #logo {
+        width: 140px;
+        margin: 0 auto 30px;
+        display: block;
+      }
+      #content {
+        margin-left: 250px;
+        padding: 40px;
+        flex-grow: 1;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      h2 {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+      }
+      h2 i {
+        margin-right: 10px;
+        color: #50c8d0;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      label {
+        text-align: left;
+        font-size: 1rem;
+      }
+      label i {
+        margin-right: 10px;
+        color: #50c8d0;
+      }
+      input,
+      select {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 1rem;
+        width: 100%;
+      }
+      input:focus,
+      select:focus {
+        border-color: #50c8d0;
+        box-shadow: 0 0 5px rgba(80, 200, 208, 0.5);
+        outline: none;
+      }
+      button {
+        background: #50c8d0;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+      }
+      button:hover {
+        background: #4a90e2;
+        transform: translateY(-2px);
+      }
+      button i {
+        margin-right: 10px;
+      }
+      #food-suggestions {
+        max-height: 200px;
+        overflow-y: auto;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin-top: 5px;
+        text-align: left;
+      }
+      #food-suggestions div {
+        padding: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      #food-suggestions div:hover {
+        background: #f0f0f0;
+      }
+      #nutrition-result,
+      #exercise-result {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        text-align: left;
+        font-size: 1rem;
+      }
+      #submit-all {
+        margin-top: 20px;
+        background: #ff6b6b;
+      }
+      #submit-all:hover {
+        background: #e65a5a;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <img id="logo" src="assets/logo.png" alt="Fit Buddy Logo" />
+      <img id="user-img" class="profile-img" src="assets/male.png" alt="User" />
+      <div id="username">Guest</div>
+      <ul>
+        <li>
+          <a href="index.html"><i class="fas fa-home"></i>Home</a>
+        </li>
+        <li>
+          <a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+        </li>
+        <li>
+          <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+        </li>
+        <li>
+          <a href="tracker.html"><i class="fas fa-dumbbell"></i>Tracker</a>
+        </li>
+        <li>
+          <a href="results.html"><i class="fas fa-chart-line"></i>Results</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="content">
+      <div class="card">
+        <h2><i class="fas fa-utensils"></i>Track Nutrition</h2>
+        <form id="nutrition-form">
+          <div>
+            <label for="food-name"
+              ><i class="fas fa-search"></i>Food Name</label
+            >
+            <input type="text" id="food-name" autocomplete="off" required />
+            <div id="food-suggestions"></div>
+          </div>
+          <div>
+            <label for="food-amount"
+              ><i class="fas fa-weight-hanging"></i>Amount (g)</label
+            >
+            <input type="number" id="food-amount" min="1" required />
+          </div>
+          <button type="submit"><i class="fas fa-plus"></i>Add Food</button>
+        </form>
+        <div id="nutrition-result"></div>
+
+        <h2 style="margin-top: 40px">
+          <i class="fas fa-running"></i>Track Exercise
+        </h2>
+        <form id="exercise-form">
+          <div>
+            <label for="exercise-name"
+              ><i class="fas fa-dumbbell"></i>Exercise</label
+            >
+            <select id="exercise-name" required>
+              <option value="1">Walking Slow Pace</option>
+              <option value="2">Walking Moderate Pace</option>
+              <option value="3">Jogging</option>
+              <option value="4">Running</option>
+              <option value="5">Calisthenics</option>
+              <option value="6">Bicycling</option>
+              <option value="7">Weight Training</option>
+              <option value="8">Swimming</option>
+            </select>
+          </div>
+          <div>
+            <label for="exercise-time"
+              ><i class="fas fa-clock"></i>Time (minutes)</label
+            >
+            <input type="number" id="exercise-time" min="1" required />
+          </div>
+          <button type="submit"><i class="fas fa-plus"></i>Add Exercise</button>
+        </form>
+        <div id="exercise-result"></div>
+
+        <button id="submit-all"><i class="fas fa-upload"></i>Submit All</button>
+      </div>
+    </div>
+    <script>
+      const FDC_API_KEY = "212LNKgbZpKu1LsF4WDfMJd3FyihSGOhwGRgXoIs";
+      let nutritionItems = [];
+      let exerciseItems = [];
+
+      async function loadUser() {
+        try {
+          const response = await fetch("http://localhost:8080/api/profile", {
+            method: "GET",
+            credentials: "include",
+          });
+          if (!response.ok) throw new Error("Failed to fetch user");
+          const user = await response.json();
+          document.getElementById("username").textContent =
+            user.username || "Guest";
+          const genderImg =
+            user.gender === "0"
+              ? "assets/male.png"
+              : user.gender === "1"
+              ? "assets/female.png"
+              : "assets/other.png";
+          document.getElementById("user-img").src = genderImg;
+        } catch (error) {
+          console.error("Error loading user:", error);
+          document.getElementById("username").textContent = "Guest";
+        }
+      }
+
+      document.getElementById("user-img").addEventListener("click", () => {
+        window.location.href = "profile.html";
+      });
+
+      const foodInput = document.getElementById("food-name");
+      const suggestions = document.getElementById("food-suggestions");
+      foodInput.addEventListener("input", () => {
+        const query = foodInput.value.trim();
+        if (query.length < 2) {
+          suggestions.innerHTML = "";
+          return;
+        }
+        delayedSearch(query);
+      });
+
+      let searchTimeout;
+      function delayedSearch(query) {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(async () => {
+          try {
+            const response = await fetch(
+              `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(
+                query
+              )}&api_key=${FDC_API_KEY}`,
+              {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+              }
+            );
+            if (!response.ok) throw new Error("Failed to search foods");
+            const data = await response.json();
+            suggestions.innerHTML = "";
+            (data.foods || []).slice(0, 10).forEach((food) => {
+              const div = document.createElement("div");
+              div.textContent = food.description;
+              div.addEventListener("click", () => {
+                foodInput.value = food.description;
+                foodInput.dataset.fdcId = food.fdcId;
+                suggestions.innerHTML = "";
+              });
+              suggestions.appendChild(div);
+            });
+          } catch (error) {
+            console.error("Error searching foods:", error);
+            suggestions.innerHTML = "<div>Error searching foods</div>";
+          }
+        }, 50);
+      }
+
+      document
+        .getElementById("nutrition-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (nutritionItems.length >= 10) {
+            alert("Maximum 10 food items allowed.");
+            return;
+          }
+
+          const foodName = foodInput.value;
+          const amount = parseFloat(
+            document.getElementById("food-amount").value
+          );
+          const fdcId = foodInput.dataset.fdcId;
+
+          if (!fdcId) {
+            alert("Please select a food item from the suggestions.");
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=${FDC_API_KEY}`,
+              {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+              }
+            );
+            if (!response.ok) throw new Error("Failed to fetch nutrition data");
+            const data = await response.json();
+
+            const nutrients = data.foodNutrients || [];
+            const calories =
+              nutrients.find((n) =>
+                n.nutrient.name.toLowerCase().includes("energy")
+              )?.amount || 0;
+            const protein =
+              nutrients.find((n) =>
+                n.nutrient.name.toLowerCase().includes("protein")
+              )?.amount || 0;
+            const carbs =
+              nutrients.find((n) =>
+                n.nutrient.name.toLowerCase().includes("carbohydrate")
+              )?.amount || 0;
+            const fats =
+              nutrients.find((n) =>
+                n.nutrient.name.toLowerCase().includes("fat")
+              )?.amount || 0;
+
+            const factor = amount / 100;
+            const nutritionData = {
+              calories: (calories * factor).toFixed(2),
+              protein: (protein * factor).toFixed(2),
+              carbohydrates: (carbs * factor).toFixed(2),
+              fats: (fats * factor).toFixed(2),
+            };
+
+            nutritionItems.push({ name: foodName, amount, ...nutritionData });
+
+            // Update nutrition display
+            document.getElementById("nutrition-result").innerHTML =
+              nutritionItems
+                .map(
+                  (item, index) => `
+              <strong>Item ${index + 1}: ${item.name} (${
+                    item.amount
+                  }g)</strong><br>
+              Calories: ${item.calories} kcal<br>
+              Protein: ${item.protein}g<br>
+              Carbohydrates: ${item.carbohydrates}g<br>
+              Fats: ${item.fats}g<br><br>
+            `
+                )
+                .join("");
+
+            // Reset form
+            foodInput.value = "";
+            foodInput.dataset.fdcId = "";
+            document.getElementById("food-amount").value = "";
+            suggestions.innerHTML = "";
+          } catch (error) {
+            console.error("Error processing nutrition data:", error);
+            alert("Error fetching nutrition data.");
+          }
+        });
+
+      document
+        .getElementById("exercise-form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (exerciseItems.length >= 10) {
+            alert("Maximum 10 exercises allowed.");
+            return;
+          }
+
+          const exerciseSelect = document.getElementById("exercise-name");
+          const exerciseData = {
+            exerciseName:
+              exerciseSelect.options[exerciseSelect.selectedIndex].text,
+            time: document.getElementById("exercise-time").value,
+          };
+
+          exerciseItems.push(exerciseData);
+
+          // Update exercise display
+          document.getElementById("exercise-result").innerHTML = exerciseItems
+            .map(
+              (item, index) => `
+            <strong>Exercise ${index + 1}: ${item.exerciseName}</strong><br>
+            Time: ${item.time} minutes<br><br>
+          `
+            )
+            .join("");
+
+          // Reset form
+          exerciseSelect.value = "1";
+          document.getElementById("exercise-time").value = "";
+        });
+
+      document
+        .getElementById("submit-all")
+        .addEventListener("click", async () => {
+          if (nutritionItems.length === 0 && exerciseItems.length === 0) {
+            alert(
+              "Please add at least one food item or exercise before submitting."
+            );
+            return;
+          }
+
+          const totalNutrition = nutritionItems.reduce(
+            (total, item) => {
+              total.calories += parseFloat(item.calories);
+              total.protein += parseFloat(item.protein);
+              total.carbohydrates += parseFloat(item.carbohydrates);
+              total.fats += parseFloat(item.fats);
+              return total;
+            },
+            { calories: 0, protein: 0, carbohydrates: 0, fats: 0 }
+          );
+
+          let summaryText = "<h3>Nutrition Summary:</h3>";
+          nutritionItems.forEach((item, index) => {
+            summaryText += `
+      <strong>Item ${index + 1}: ${item.name} (${item.amount}g)</strong><br>
+      Calories: ${item.calories} kcal<br>
+      Protein: ${item.protein}g<br>
+      Carbohydrates: ${item.carbohydrates}g<br>
+      Fats: ${item.fats}g<br><br>
+    `;
+          });
+          document.getElementById("nutrition-result").innerHTML = summaryText;
+
+          const payload = {
+            total_nutrition: {
+              Calories: parseFloat(totalNutrition.calories),
+              Proteins: parseFloat(totalNutrition.protein),
+              Carbohydrates: parseFloat(totalNutrition.carbohydrates),
+              Fats: parseFloat(totalNutrition.fats),
+            },
+            user_fitness: exerciseItems.map((item) => ({
+              ExerciseName: item.exerciseName,
+              Time: parseFloat(item.time),
+            })),
+          };
+
+          try {
+            const response = await fetch("http://localhost:8080/api/tracker", {
+              method: "POST",
+              headers: { "Content-Type": "text/plain" },
+              credentials: "include",
+              body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+              alert("All data submitted successfully!");
+              nutritionItems = [];
+              exerciseItems = [];
+              document.getElementById("nutrition-result").innerHTML = "";
+              document.getElementById("exercise-result").innerHTML = "";
+            } else {
+              alert("Error submitting data to backend.");
+            }
+          } catch (error) {
+            console.error("Error submitting data:", error);
+            alert("Error submitting data.");
+          }
+        });
+
+      loadUser();
+    </script>
+  </body>
+</html>
