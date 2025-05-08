@@ -3,8 +3,8 @@
 #include "server_constants.h"
 #include "handle_request_functions.h"
 #include "User.h"
+#include "doc_root.h"
 
-const std::string_view doc_root = "/Users/vedwalvekar/Coding/Cpp/Fitness_Server";
 
 std::string path_cat(
     beast::string_view base,
@@ -43,7 +43,7 @@ http::message_generator handle_file_request(
     std::cout << path << '\n';
 
     if (req.target().back() == '/') {
-        path.append("index.html");
+        path.append("HTML/index.html");
         cookie_flag = true;
     }
     //path = req.target();

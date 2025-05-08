@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit Buddy - Profile</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: url("/assets/background.jpg") no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        color: #333;
+      }
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(80, 200, 208, 0.3);
+        z-index: -1;
+      }
+      nav {
+        width: 250px;
+        background: linear-gradient(180deg, #1a1a1a, #333);
+        color: white;
+        height: 100vh;
+        padding: 30px 20px;
+        position: fixed;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+      }
+      nav img.profile-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 3px solid #50c8d0;
+        cursor: pointer;
+        transition: transform 0.3s;
+        margin: 20px auto;
+        display: block;
+      }
+      nav img.profile-img:hover {
+        transform: scale(1.1);
+      }
+      nav #username {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #fff;
+      }
+      nav ul {
+        list-style: none;
+      }
+      nav a {
+        color: #ccc;
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 15px 20px;
+        display: block;
+        transition: all 0.3s ease;
+        border-radius: 10px;
+      }
+      nav a:hover {
+        color: #50c8d0;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      nav a i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+      #logo {
+        width: 140px;
+        margin: 0 auto 30px;
+        display: block;
+      }
+      #content {
+        margin-left: 250px;
+        padding: 40px;
+        flex-grow: 1;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 550px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      h2 {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+      }
+      h2 i {
+        margin-right: 10px;
+        color: #50c8d0;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      label {
+        text-align: left;
+        font-size: 1rem;
+      }
+      label i {
+        margin-right: 10px;
+        color: #50c8d0;
+      }
+      input,
+      select {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 1rem;
+        width: 100%;
+      }
+      input:focus,
+      select:focus {
+        border-color: #50c8d0;
+        box-shadow: 0 0 5px rgba(80, 200, 208, 0.5);
+        outline: none;
+      }
+      button {
+        background: #50c8d0;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+      }
+      button:hover {
+        background: #4a90e2;
+        transform: translateY(-2px);
+      }
+      button i {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <img id="logo" src="/assets/logo.png" alt="Fit Buddy Logo" />
+      <img
+        id="user-img"
+        class="profile-img"
+        src="/assets/male.png"
+        alt="User"
+      />
+      <div id="username">Guest</div>
+      <ul>
+        <li>
+          <a href="/HTML/index.html"><i class="fas fa-home"></i>Home</a>
+        </li>
+        <li>
+          <a href="/HTML/login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+        </li>
+        <li>
+          <a href="/HTML/profile.html"><i class="fas fa-user"></i>Profile</a>
+        </li>
+        <li>
+          <a href="/HTML/tracker.html"
+            ><i class="fas fa-dumbbell"></i>Tracker</a
+          >
+        </li>
+        <li>
+          <a href="/HTML/results.html"
+            ><i class="fas fa-chart-line"></i>Results</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <div id="content">
+      <div class="card">
+        <h2 id="form-title"><i class="fas fa-user-edit"></i>Create Profile</h2>
+        <form id="profile-form">
+          <div>
+            <label for="full-name"><i class="fas fa-user"></i>Full Name</label>
+            <input type="text" id="full-name" required />
+          </div>
+          <div>
+            <label for="gender"><i class="fas fa-venus-mars"></i>Gender</label>
+            <select id="gender" required>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+              <option value="3">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="age"><i class="fas fa-birthday-cake"></i>Age</label>
+            <input type="number" id="age" min="1" required />
+          </div>
+          <div>
+            <label for="height"
+              ><i class="fas fa-ruler-vertical"></i>Height (m)</label
+            >
+            <input
+              type="number"
+              id="height"
+              min="0.5"
+              max="2.5"
+              step="0.01"
+              required
+            />
+          </div>
+          <div>
+            <label for="weight"><i class="fas fa-weight"></i>Weight (kg)</label>
+            <input type="number" id="weight" min="1" required />
+          </div>
+          <div>
+            <label for="goal"
+              ><i class="fas fa-bullseye"></i>Fitness Goal</label
+            >
+            <select id="goal" required>
+              <option value="3">Weight Loss</option>
+              <option value="2">Weight Gain</option>
+              <option value="1">Maintain Weight</option>
+            </select>
+          </div>
+          <div>
+            <label for="email"><i class="fas fa-envelope"></i>Email</label>
+            <input type="email" id="email" required />
+          </div>
+          <div>
+            <label for="password"><i class="fas fa-key"></i>Password</label>
+            <input type="password" id="password" required />
+          </div>
+          <button type="submit"><i class="fas fa-save"></i>Save</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      async function loadUser() {
+        try {
+          const response = await fetch("http://localhost:8080/api/profile", {
+            method: "GET",
+            credentials: "include",
+          });
+          if (!response.ok) throw new Error("Failed to fetch user");
+          const user = await response.json();
+          document.getElementById("username").textContent =
+            user.username || "Guest";
+          const genderImg =
+            user.gender === "0"
+              ? "assets/male.png"
+              : user.gender === "1"
+              ? "assets/female.png"
+              : "assets/other.png";
+          document.getElementById("user-img").src = genderImg;
+          if (user.fullName) {
+            document.getElementById("form-title").innerHTML =
+              '<i class="fas fa-user-edit"></i>Edit Profile';
+            document.getElementById("full-name").value = user.fullName || "";
+            document.getElementById("gender").value = user.gender || "0";
+            document.getElementById("age").value = user.age || "";
+            document.getElementById("height").value = user.height || "";
+            document.getElementById("weight").value = user.weight || "";
+            document.getElementById("goal").value = user.goal || "loss";
+            document.getElementById("email").value = user.email || "";
+          }
+        } catch (error) {
+          console.error("Error loading user:", error);
+          document.getElementById("username").textContent = "Guest";
+        }
+      }
+
+      document.getElementById("user-img").addEventListener("click", () => {
+        window.location.href = "HTML/profile.html";
+      });
+
+      document
+        .getElementById("profile-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const profile = {
+            Fullname: document.getElementById("full-name").value,
+            Gender: parseInt(document.getElementById("gender").value),
+            Age: parseInt(document.getElementById("age").value),
+            Height: parseFloat(document.getElementById("height").value),
+            Weight: parseFloat(document.getElementById("weight").value),
+            Weight_goal: parseInt(document.getElementById("goal").value),
+            Email: document.getElementById("email").value,
+            Password: document.getElementById("password").value,
+          };
+
+          try {
+            const response = await fetch("http://localhost:8080/api/profile", {
+              method: "POST",
+              headers: { "Content-Type": "text/plain" },
+              credentials: "include",
+              body: JSON.stringify({ User: profile }),
+            });
+            if (response.ok) {
+              window.location.href = "tracker.html";
+            } else {
+              alert("Error saving profile");
+            }
+          } catch (error) {
+            console.error("Error saving profile:", error);
+            alert("Error saving profile");
+          }
+        });
+
+      loadUser();
+    </script>
+  </body>
+</html>

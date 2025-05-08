@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fit Buddy - Login</title>
+    <title>Fit Buddy - Home</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
       rel="stylesheet"
@@ -20,7 +20,7 @@
       }
       body {
         font-family: "Poppins", sans-serif;
-        background: url("assets/background.jpg") no-repeat center center fixed;
+        background: url("/assets/background.jpg") no-repeat center center fixed;
         background-size: cover;
         position: relative;
         min-height: 100vh;
@@ -103,7 +103,7 @@
         border-radius: 15px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         padding: 30px;
-        max-width: 450px;
+        max-width: 700px;
         margin: 0 auto;
         text-align: center;
       }
@@ -115,102 +115,59 @@
         margin-right: 10px;
         color: #50c8d0;
       }
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+      #tips {
+        font-size: 1.1rem;
+        line-height: 1.6;
       }
-      label {
-        text-align: left;
-        font-size: 1rem;
-      }
-      label i {
-        margin-right: 10px;
+      #tips i {
         color: #50c8d0;
-      }
-      input {
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        font-size: 1rem;
-        width: 100%;
-      }
-      input:focus {
-        border-color: #50c8d0;
-        box-shadow: 0 0 5px rgba(80, 200, 208, 0.5);
-        outline: none;
-      }
-      button {
-        background: #50c8d0;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 25px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.3s, transform 0.2s;
-      }
-      button:hover {
-        background: #4a90e2;
-        transform: translateY(-2px);
-      }
-      button i {
         margin-right: 10px;
-      }
-      p {
-        margin-top: 15px;
-        font-size: 0.9rem;
-      }
-      p a {
-        color: #4a90e2;
-        text-decoration: none;
-      }
-      p a:hover {
-        text-decoration: underline;
       }
     </style>
   </head>
   <body>
     <nav>
-      <img id="logo" src="assets/logo.png" alt="Fit Buddy Logo" />
-      <img id="user-img" class="profile-img" src="assets/male.png" alt="User" />
+      <img id="logo" src="/assets/logo.png" alt="Fit Buddy Logo" />
+      <img
+        id="user-img"
+        class="profile-img"
+        src="/assets/male.png"
+        alt="User"
+      />
       <div id="username">Guest</div>
       <ul>
         <li>
-          <a href="index.html"><i class="fas fa-home"></i>Home</a>
+          <a href="/HTML/index.html"><i class="fas fa-home"></i>Home</a>
         </li>
         <li>
-          <a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+          <a href="/HTML/login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
         </li>
         <li>
-          <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+          <a href="/HTML/profile.html"><i class="fas fa-user"></i>Profile</a>
         </li>
         <li>
-          <a href="tracker.html"><i class="fas fa-dumbbell"></i>Tracker</a>
+          <a href="/HTML/tracker.html"
+            ><i class="fas fa-dumbbell"></i>Tracker</a
+          >
         </li>
         <li>
-          <a href="results.html"><i class="fas fa-chart-line"></i>Results</a>
+          <a href="/HTML/results.html"
+            ><i class="fas fa-chart-line"></i>Results</a
+          >
         </li>
       </ul>
     </nav>
     <div id="content">
       <div class="card">
-        <h2><i class="fas fa-lock"></i>Login</h2>
-        <form id="login-form">
-          <div>
-            <label for="email"><i class="fas fa-envelope"></i>Email</label>
-            <input type="email" id="email" required />
-          </div>
-          <div>
-            <label for="password"><i class="fas fa-key"></i>Password</label>
-            <input type="password" id="password" required />
-          </div>
-          <button type="submit"><i class="fas fa-sign-in-alt"></i>Login</button>
-          <p>No account? <a href="#" id="signup-link">Sign Up</a></p>
-        </form>
+        <h2><i class="fas fa-heartbeat"></i>Welcome to Fit Buddy</h2>
+        <div id="tips">
+          <i class="fas fa-spinner fa-spin"></i>Loading health tips...
+        </div>
       </div>
     </div>
     <script>
+      const GEMINI_API_KEY = "AIzaSyDui7q2c08XulwttOBMmm-hni1JvjUnALQ";
+
       async function loadUser() {
         try {
           const response = await fetch("http://localhost:8080/api/profile", {
@@ -223,10 +180,10 @@
             user.username || "Guest";
           const genderImg =
             user.gender === "0"
-              ? "assets/male.png"
+              ? "/assets/male.png"
               : user.gender === "1"
-              ? "assets/female.png"
-              : "assets/other.png";
+              ? "/assets/female.png"
+              : "/assets/other.png";
           document.getElementById("user-img").src = genderImg;
         } catch (error) {
           console.error("Error loading user:", error);
@@ -234,42 +191,48 @@
         }
       }
 
-      document.getElementById("user-img").addEventListener("click", () => {
-        window.location.href = "profile.html";
-      });
-
-      document
-        .getElementById("login-form")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const userauthinfo = {
-            Email: document.getElementById("email").value,
-            Password: document.getElementById("password").value,
-          };
-          try {
-            const response = await fetch("http://localhost:8080/api/login", {
+      async function loadTips() {
+        try {
+          const response = await fetch(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
+              GEMINI_API_KEY,
+            {
               method: "POST",
-              headers: { "Content-Type": "text/plain" },
-              credentials: "include",
-              body: JSON.stringify({ UserAuthInfo: userauthinfo }),
-            });
-            if (response.ok) {
-              window.location.href = "tracker.html";
-            } else {
-              alert("Invalid credentials");
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                contents: [
+                  {
+                    parts: [
+                      {
+                        text: "Provide a short tip on why eating healthy and exercising is important.",
+                      },
+                    ],
+                  },
+                ],
+              }),
             }
-          } catch (error) {
-            console.error("Error logging in:", error);
-            alert("Error logging in");
-          }
-        });
+          );
+          if (!response.ok) throw new Error("Failed to fetch tips");
+          const data = await response.json();
+          document.getElementById(
+            "tips"
+          ).innerHTML = `<i class="fas fa-lightbulb"></i>${
+            data.candidates[0].content.parts[0].text ||
+            "Stay healthy with balanced nutrition and regular exercise!"
+          }`;
+        } catch (error) {
+          console.error("Error loading tips:", error);
+          document.getElementById("tips").innerHTML =
+            '<i class="fas fa-lightbulb"></i>Stay healthy with balanced nutrition and regular exercise!';
+        }
+      }
 
-      document.getElementById("signup-link").addEventListener("click", (e) => {
-        e.preventDefault();
-        window.location.href = "profile.html?signup=true";
+      document.getElementById("user-img").addEventListener("click", () => {
+        window.location.href = "HTML/profile.html";
       });
 
       loadUser();
+      loadTips();
     </script>
   </body>
 </html>

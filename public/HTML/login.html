@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fit Buddy - Profile</title>
+    <title>Fit Buddy - Login</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
       rel="stylesheet"
@@ -103,7 +103,7 @@
         border-radius: 15px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         padding: 30px;
-        max-width: 550px;
+        max-width: 450px;
         margin: 0 auto;
         text-align: center;
       }
@@ -128,16 +128,14 @@
         margin-right: 10px;
         color: #50c8d0;
       }
-      input,
-      select {
+      input {
         padding: 12px;
         border: 1px solid #ddd;
         border-radius: 10px;
         font-size: 1rem;
         width: 100%;
       }
-      input:focus,
-      select:focus {
+      input:focus {
         border-color: #50c8d0;
         box-shadow: 0 0 5px rgba(80, 200, 208, 0.5);
         outline: none;
@@ -159,78 +157,53 @@
       button i {
         margin-right: 10px;
       }
+      p {
+        margin-top: 15px;
+        font-size: 0.9rem;
+      }
+      p a {
+        color: #4a90e2;
+        text-decoration: none;
+      }
+      p a:hover {
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
     <nav>
-      <img id="logo" src="assets/logo.png" alt="Fit Buddy Logo" />
-      <img id="user-img" class="profile-img" src="assets/male.png" alt="User" />
+      <img id="logo" src="/assets/logo.png" alt="Fit Buddy Logo" />
+      <img
+        id="user-img"
+        class="profile-img"
+        src="/assets/male.png"
+        alt="User"
+      />
       <div id="username">Guest</div>
       <ul>
         <li>
-          <a href="index.html"><i class="fas fa-home"></i>Home</a>
+          <a href="/HTML/index.html"><i class="fas fa-home"></i>Home</a>
         </li>
         <li>
-          <a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+          <a href="/HTML/login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
         </li>
         <li>
-          <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+          <a href="/HTML/profile.html"><i class="fas fa-user"></i>Profile</a>
         </li>
         <li>
           <a href="tracker.html"><i class="fas fa-dumbbell"></i>Tracker</a>
         </li>
         <li>
-          <a href="results.html"><i class="fas fa-chart-line"></i>Results</a>
+          <a href="/HTML/results.html"
+            ><i class="fas fa-chart-line"></i>Results</a
+          >
         </li>
       </ul>
     </nav>
     <div id="content">
       <div class="card">
-        <h2 id="form-title"><i class="fas fa-user-edit"></i>Create Profile</h2>
-        <form id="profile-form">
-          <div>
-            <label for="full-name"><i class="fas fa-user"></i>Full Name</label>
-            <input type="text" id="full-name" required />
-          </div>
-          <div>
-            <label for="gender"><i class="fas fa-venus-mars"></i>Gender</label>
-            <select id="gender" required>
-              <option value="1">Male</option>
-              <option value="2">Female</option>
-              <option value="3">Other</option>
-            </select>
-          </div>
-          <div>
-            <label for="age"><i class="fas fa-birthday-cake"></i>Age</label>
-            <input type="number" id="age" min="1" required />
-          </div>
-          <div>
-            <label for="height"
-              ><i class="fas fa-ruler-vertical"></i>Height (m)</label
-            >
-            <input
-              type="number"
-              id="height"
-              min="0.5"
-              max="2.5"
-              step="0.01"
-              required
-            />
-          </div>
-          <div>
-            <label for="weight"><i class="fas fa-weight"></i>Weight (kg)</label>
-            <input type="number" id="weight" min="1" required />
-          </div>
-          <div>
-            <label for="goal"
-              ><i class="fas fa-bullseye"></i>Fitness Goal</label
-            >
-            <select id="goal" required>
-              <option value="3">Weight Loss</option>
-              <option value="2">Weight Gain</option>
-              <option value="1">Maintain Weight</option>
-            </select>
-          </div>
+        <h2><i class="fas fa-lock"></i>Login</h2>
+        <form id="login-form">
           <div>
             <label for="email"><i class="fas fa-envelope"></i>Email</label>
             <input type="email" id="email" required />
@@ -239,7 +212,8 @@
             <label for="password"><i class="fas fa-key"></i>Password</label>
             <input type="password" id="password" required />
           </div>
-          <button type="submit"><i class="fas fa-save"></i>Save</button>
+          <button type="submit"><i class="fas fa-sign-in-alt"></i>Login</button>
+          <p>No account? <a href="#" id="signup-link">Sign Up</a></p>
         </form>
       </div>
     </div>
@@ -256,22 +230,11 @@
             user.username || "Guest";
           const genderImg =
             user.gender === "0"
-              ? "assets/male.png"
+              ? "/assets/male.png"
               : user.gender === "1"
-              ? "assets/female.png"
-              : "assets/other.png";
+              ? "/assets/female.png"
+              : "/assets/other.png";
           document.getElementById("user-img").src = genderImg;
-          if (user.fullName) {
-            document.getElementById("form-title").innerHTML =
-              '<i class="fas fa-user-edit"></i>Edit Profile';
-            document.getElementById("full-name").value = user.fullName || "";
-            document.getElementById("gender").value = user.gender || "0";
-            document.getElementById("age").value = user.age || "";
-            document.getElementById("height").value = user.height || "";
-            document.getElementById("weight").value = user.weight || "";
-            document.getElementById("goal").value = user.goal || "loss";
-            document.getElementById("email").value = user.email || "";
-          }
         } catch (error) {
           console.error("Error loading user:", error);
           document.getElementById("username").textContent = "Guest";
@@ -283,37 +246,35 @@
       });
 
       document
-        .getElementById("profile-form")
+        .getElementById("login-form")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const profile = {
-            Fullname: document.getElementById("full-name").value,
-            Gender: parseInt(document.getElementById("gender").value),
-            Age: parseInt(document.getElementById("age").value),
-            Height: parseFloat(document.getElementById("height").value),
-            Weight: parseFloat(document.getElementById("weight").value),
-            Weight_goal: parseInt(document.getElementById("goal").value),
+          const userauthinfo = {
             Email: document.getElementById("email").value,
             Password: document.getElementById("password").value,
           };
-
           try {
-            const response = await fetch("http://localhost:8080/api/profile", {
+            const response = await fetch("http://localhost:8080/api/login", {
               method: "POST",
               headers: { "Content-Type": "text/plain" },
               credentials: "include",
-              body: JSON.stringify({ User: profile }),
+              body: JSON.stringify({ UserAuthInfo: userauthinfo }),
             });
             if (response.ok) {
               window.location.href = "tracker.html";
             } else {
-              alert("Error saving profile");
+              alert("Invalid credentials");
             }
           } catch (error) {
-            console.error("Error saving profile:", error);
-            alert("Error saving profile");
+            console.error("Error logging in:", error);
+            alert("Error logging in");
           }
         });
+
+      document.getElementById("signup-link").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = "HTML/profile.html?signup=true";
+      });
 
       loadUser();
     </script>

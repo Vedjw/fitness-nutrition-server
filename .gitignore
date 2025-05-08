@@ -1,3 +1,7 @@
-*.png
+.vscode
+client.cpp
 *.db
-*.vscode
+make_db.cpp
+fitness_server
+API_keys.js
+include/doc_root.h

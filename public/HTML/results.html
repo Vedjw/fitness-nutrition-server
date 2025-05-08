@@ -21,7 +21,7 @@
       }
       body {
         font-family: "Poppins", sans-serif;
-        background: url("assets/background.jpg") no-repeat center center fixed;
+        background: url("/assets/background.jpg") no-repeat center center fixed;
         background-size: cover;
         position: relative;
         min-height: 100vh;
@@ -150,24 +150,33 @@
   </head>
   <body>
     <nav>
-      <img id="logo" src="assets/logo.png" alt="Fit Buddy Logo" />
-      <img id="user-img" class="profile-img" src="assets/male.png" alt="User" />
+      <img id="logo" src="/assets/logo.png" alt="Fit Buddy Logo" />
+      <img
+        id="user-img"
+        class="profile-img"
+        src="/assets/male.png"
+        alt="User"
+      />
       <div id="username">Guest</div>
       <ul>
         <li>
-          <a href="index.html"><i class="fas fa-home"></i>Home</a>
+          <a href="/HTML/index.html"><i class="fas fa-home"></i>Home</a>
         </li>
         <li>
-          <a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+          <a href="/HTML/login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
         </li>
         <li>
-          <a href="profile.html"><i class="fas fa-user"></i>Profile</a>
+          <a href="/HTML/profile.html"><i class="fas fa-user"></i>Profile</a>
         </li>
         <li>
-          <a href="tracker.html"><i class="fas fa-dumbbell"></i>Tracker</a>
+          <a href="/HTML/tracker.html"
+            ><i class="fas fa-dumbbell"></i>Tracker</a
+          >
         </li>
         <li>
-          <a href="results.html"><i class="fas fa-chart-line"></i>Results</a>
+          <a href="/HTML/results.html"
+            ><i class="fas fa-chart-line"></i>Results</a
+          >
         </li>
       </ul>
     </nav>
@@ -200,8 +209,6 @@
       </div>
     </div>
     <script>
-      const GEMINI_API_KEY = "AIzaSyDui7q2c08XulwttOBMmm-hni1JvjUnALQ";
-
       async function loadUser() {
         try {
           const response = await fetch("http://localhost:8080/api/profile", {
@@ -214,10 +221,10 @@
             user.username || "Guest";
           const genderImg =
             user.gender === "0"
-              ? "assets/male.png"
+              ? "/assets/male.png"
               : user.gender === "1"
-              ? "assets/female.png"
-              : "assets/other.png";
+              ? "/assets/female.png"
+              : "/assets/other.png";
           document.getElementById("user-img").src = genderImg;
         } catch (error) {
           console.error("Error loading user:", error);
@@ -226,7 +233,7 @@
       }
 
       document.getElementById("user-img").addEventListener("click", () => {
-        window.location.href = "profile.html";
+        window.location.href = "HTML/profile.html";
       });
 
       async function loadResults() {
