@@ -1,7 +1,10 @@
-.vscode
-client.cpp
-*.db
-make_db.cpp
-fitness_server
-API_keys.js
-include/doc_root.h
+# Ignore everything
+/*
+
+# Except these directories
+!/src/
+!/include/
+!/public/
+
+# You may also want to allow hidden files like .gitignore
+!.gitignore
