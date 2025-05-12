@@ -1,0 +1,8 @@
+.vscode/
+client.cpp
+fitnessDB.db
+make_db.cpp
+API_keys.js
+include/doc_root.h
+fitness_server
+.DS_Store
