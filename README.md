@@ -16,3 +16,5 @@ A web-based health tracking system built in C++ that allows users to log their d
 - **Boost.Beast** – Handles HTTP requests and responses.
 - **SQLite** – Lightweight database for storing logs.
 - **HTML / JavaScript** – Front-end form and interaction.
+
+## PS adding Makefile soon
